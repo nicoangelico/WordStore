@@ -7,70 +7,10 @@
 
 <nav class="navbar navbar-light bg-light justify-content-between">
     <a class="navbar-brand"><h2>Word Store</h2></a>
-    <form class="form-inline" action="" method="post">
-        <select class="custom-select" name='idiom_select' id='idiom_select'>
-            <option selected value="Spanish">Spanish</option>
-            <option value="English">English</option>
-            <option value="German">German</option>
-            <option value="Japanese">Japanese</option>
-            <option value="Portuguese">Portuguese</option>
-            <option value="Russian">Russian</option>
-        </select>
-        {% csrf_token %}
-        {{ form }}
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Submit">Add</button>
+    <form class="form-inline" action="/wordstore/login/">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Submit">Login</button>
     </form>
 </nav>
 
 <!-- Cuerpo de la pagina -->
 
-<div class="container">
-        <div class="row">
-          <div class="col">
-        
-          </div>
-          <div class="col-8">
-
-                <div class="alert alert-success" role="alert">
-                        Last saved words
-                    </div>
-                    
-                    {% if latest_word_list %}
-                    <ul class="list-group">
-                    {% for word in latest_word_list %}
-                        
-                            <li class="list-group-item">
-                                <div class="media">
-                                    <img class="mr-3" src="{{word.url_imagen}}" alt="Generic placeholder image" width="100" height="100">
-                                    <div class="media-body">
-                                        <h5><a href="{% url 'wordstore:detail' word.id %}">{{ word.word }}</a></h5>
-                                            <ul>
-                                                <li><b>{{ word.translation }}</b></li>
-                                                <li>{{ word.pub_date }}</li>
-                                            </ul>
-                                    </div>
-                          </div>
-                        </li>
-                    
-                    {% endfor %}
-                    </ul>
-                    {% else %}
-                    <p>No Word are available.</p>
-                    {% endif %}
-
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </nav>
-
-          </div>
-          <div class="col">
-        
-          </div>
-        </div>
-</div>

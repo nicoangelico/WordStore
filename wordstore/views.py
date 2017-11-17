@@ -9,11 +9,17 @@ from django.views import generic
 from django.utils import timezone
 from googletrans import Translator
 from .forms import NameForm
+from django.contrib.auth import authenticate
 
 idioms = {'Spanish': 'es', 'English': 'en', 'German': 'de', 'Japanese': 'ja', 'Portuguese': 'pt', 'Russian': 'ru'}
 
-# Create your views here.
 def index(request):
+    template = loader.get_template('wordstore/index.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+# Create your views here.
+def userWord(request, username):
     latest_word_list = Word.objects.order_by('-pub_date')[0:10]
     template = loader.get_template('wordstore/index.html')
     
@@ -27,10 +33,9 @@ def index(request):
             print(idiom_selected)
             code_idiom = idioms[idiom_selected]
             # process the data in form.cleaned_data as required
-            # translator = Translator()
-            # translate = translator.translate(word_intro, dest=code_idiom).text
+            translator = Translator()
+            translate = translator.translate(word_intro, dest=code_idiom).text
             word_intro = form.cleaned_data['word_info']
-            translate = 'traduccion'
             date = timezone.now()
             Word.objects.create(word = word_intro, translation = translate, pub_date = date)
 
@@ -56,7 +61,22 @@ def detail(request, word_id):
     return render(request, 'wordstore/detail.html', {'word': word})
 
 def login(request):
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        if form.is_valid():
+            email_user = request.POST['email']
+            password_user = request.POST['password']
+            user = authenticate(username= email_user, password= password_user)
+            if user is not None:
+                return userWord(request, email_user)
+            else:
+                return HttpResponse("Error to login")
+    else:
+        template = loader.get_template('wordstore/login.html')
+        context = {}
+        return HttpResponse(template.render(context, request))
+
+def newUser(request):
     template = loader.get_template('wordstore/login.html')
     context = {}
     return HttpResponse(template.render(context, request))
-
