@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
         <div class="container">
-            <form class="form-horizontal" role="form" method="POST" action="/login">
+            <form class="form-horizontal" role="form" method="POST">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-md-3"></div>
@@ -22,10 +22,10 @@
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
                         <div class="form-group has-danger">
-                            <label class="sr-only" for="email">E-Mail Address</label>
+                            <label class="sr-only" for="email">E-Mail Address or Name User</label>
                             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                 <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                                <input type="text" name="email" class="form-control" id="email"
+                                <input type="text" name="username" class="form-control" id="username"
                                        placeholder="you@example.com" required autofocus>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                     <div class="col-md-3">
                         <div class="form-control-feedback">
                             <span class="text-danger align-middle">
-                                <i class="fa fa-close"></i> Example error message
+                                <i class="fa fa-close"></i> {{ form.errors }}
                             </span>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                 <div class="row" style="padding-top: 1rem">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login</button>
+                        <input type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i>
                         <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
                         <a class="btn btn-link" href="/newuser">Create Account</a>
                     </div>

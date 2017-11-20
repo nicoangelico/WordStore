@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -10,6 +11,7 @@ class Word(models.Model):
     translation = models.CharField(max_length=40)
     url_imagen = models.CharField(max_length=200, default='http://www.upforest.gov.in/Images/Default.png')
     pub_date = models.DateTimeField('date published')
+    created_by = models.ForeignKey(User, editable=False, default=1)
     
     #Retorno lo url de la vista de detalle de la nueva palabra creada
     def get_absolute_url(self):
