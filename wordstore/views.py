@@ -14,6 +14,8 @@ from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 
 idioms = {'Spanish': 'es', 'English': 'en', 'German': 'de', 'Japanese': 'ja', 'Portuguese': 'pt', 'Russian': 'ru'}
 
@@ -88,7 +90,16 @@ def detail(request, word_id):
     word = get_object_or_404(Word, pk=word_id)
     return render(request, 'wordstore/detail.html', {'word': word})
 
-def newUser(request):
-    template = loader.get_template('wordstore/login.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'wordstore/signup.html', {'form': form})
