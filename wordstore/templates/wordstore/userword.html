@@ -6,7 +6,20 @@
 
 
 <nav class="navbar navbar-light bg-light justify-content-between">
-    <a class="navbar-brand"><h2>Word Store</h2>hello {{request.user.username}} </a>
+    <div>
+    <a class="navbar-brand">
+        <h2>Word Store</h2>
+    </a>
+        <h5>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hi, {{request.user.username}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="#">Account</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{% url 'wordstore:logout' %}">Log out</a></h5>
+        </div></h5>
+    </div>
     <div>
         <form class="form-inline" action="" method="post">
             <select class="custom-select" name='idiom_select' id='idiom_select'>
@@ -23,6 +36,7 @@
         </form>
     </div>
 </nav>
+
 
 <!-- Cuerpo de la pagina -->
 

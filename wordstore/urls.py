@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^worduser$', views.userWord, name='userword'),
     url(r'^detail/(?P<word_id>[0-9]+)$', views.detail, name='detail'),
-    url(r'^login$', login, {'template_name':'wordstore/login.html'}, name='login'),
+    url(r'^accounts/login/$', login, {'template_name':'wordstore/login.html'}, name='login'),
     url(r'^signup$', views.signup, name='signup'),
+    url(r'^logout$', views.logout_view, name='logout'),
 ]

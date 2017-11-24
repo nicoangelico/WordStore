@@ -99,7 +99,14 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            return redirect('wordstore:userword')
     else:
         form = UserCreationForm()
     return render(request, 'wordstore/signup.html', {'form': form})
+
+from django.contrib.auth import logout
+
+def logout_view(request):
+    logout(request)
+    # Redirect to a success page.
+    return redirect('wordstore:index')

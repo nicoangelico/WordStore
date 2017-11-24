@@ -7,7 +7,7 @@
 
 <nav class="navbar navbar-light bg-light justify-content-between">
     <a class="navbar-brand"><h2>Word Store</h2></a>
-    <form class="form-inline" action="/wordstore/login">
+    <form class="form-inline" action="{% url 'wordstore:login' %}">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Submit">Login</button>
     </form>
 </nav>
