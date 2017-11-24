@@ -24,7 +24,7 @@ def index(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
-@login_required
+@login_required(login_url='/wordstore/login')
 def userWord(request):
     latest_word_list = Word.objects.filter(created_by=request.user).order_by('-pub_date')
     template = loader.get_template('wordstore/userword.html')
@@ -109,4 +109,7 @@ from django.contrib.auth import logout
 def logout_view(request):
     logout(request)
     # Redirect to a success page.
-    return redirect('wordstore:index')
+    return redirect('wordstore:userword')
+
+def reset_password(request):
+    return render(request, 'wordstore/resetpassword.html', {})
