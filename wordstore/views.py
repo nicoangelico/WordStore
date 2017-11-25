@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template import loader
 from .models import Word
+# from .searchImage import get_url_image
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import generic
 from django.utils import timezone
